@@ -15,11 +15,11 @@ RESET="\033[0m"
 
 
 displayLogo(){
-echo -e "${GREEN}                               
- _______                     _______              
+echo -e "${GREEN}
+ _______                     _______
 |   |   |.---.-.-----.-----.|   |   |.---.-.-----.
 |       ||  _  |__ --|__ --||       ||  _  |  _  |
-|__|_|__||___._|_____|_____||__|_|__||___._|   __|${RESET} ${RED}v$VERSION${RESET}  
+|__|_|__||___._|_____|_____||__|_|__||___._|   __|${RESET} ${RED}v$VERSION${RESET}
                                            ${GREEN}|__|${RESET}    by ${YELLOW}@CaptMeelo${RESET}\n
 "
 }
@@ -57,7 +57,7 @@ portScan(){
     echo -e "${RED}[*] Masscan Done!"
 
     echo -e "${GREEN}[+] Running Nmap.${RESET}"
-    sudo nmap -sVC -p $open_ports --open -v -Pn -n -T4 -iL $WORKING_DIR/nmap_targets.tmp -oX $RESULTS_PATH/nmap.xml
+    sudo nmap -sVC --script=vulners -p $open_ports --open -v -Pn -n -T4 -iL $WORKING_DIR/nmap_targets.tmp -oX $RESULTS_PATH/nmap.xml
     sudo rm $WORKING_DIR/nmap_targets.tmp
     xsltproc -o $RESULTS_PATH/nmap-native.html $RESULTS_PATH/nmap.xml
     xsltproc -o $RESULTS_PATH/nmap-bootstrap.html $WORKING_DIR/bootstrap-nmap.xsl $RESULTS_PATH/nmap.xml
